@@ -6,11 +6,46 @@ const sections = document.querySelectorAll('section');
 const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 const timelineItems = document.querySelectorAll('.timeline-item');
 const projectCards = document.querySelectorAll('.project-card');
+const backToTopBtn = document.getElementById('backToTop');
+const themeToggle = document.getElementById('themeToggle');
+const themeToggleMobile = document.getElementById('themeToggleMobile');
+const html = document.documentElement;
 
 let mouseX = 0;
 let mouseY = 0;
 let followerX = 0;
 let followerY = 0;
+
+const savedTheme = localStorage.getItem('theme') || 'dark';
+if (savedTheme === 'light') {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    updateThemeIcons();
+}
+
+function updateThemeIcons() {
+    const isDark = html.classList.contains('dark');
+    document.getElementById('sunIcon').classList.toggle('hidden', isDark);
+    document.getElementById('moonIcon').classList.toggle('hidden', !isDark);
+    document.getElementById('sunIconMobile').classList.toggle('hidden', isDark);
+    document.getElementById('moonIconMobile').classList.toggle('hidden', !isDark);
+}
+
+function toggleTheme() {
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    updateThemeIcons();
+}
+
+themeToggle.addEventListener('click', toggleTheme);
+themeToggleMobile.addEventListener('click', toggleTheme);
 
 document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
@@ -91,9 +126,25 @@ function revealOnScroll() {
     });
 }
 
+function toggleBackToTop() {
+    if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+}
+
 window.addEventListener('scroll', () => {
     updateActiveNav();
     revealOnScroll();
+    toggleBackToTop();
+});
+
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 });
 
 revealOnScroll();
@@ -108,8 +159,8 @@ projectCards.forEach(card => {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
         
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
     });
@@ -151,7 +202,7 @@ window.addEventListener('scroll', () => {
             const parallaxElements = document.querySelectorAll('.hero-text');
             
             parallaxElements.forEach(element => {
-                const speed = 0.5;
+                const speed = 0.3;
                 element.style.transform = `translateY(${scrolled * speed}px)`;
             });
             
@@ -177,15 +228,4 @@ const observer = new IntersectionObserver((entries) => {
 
 scrollRevealElements.forEach(element => {
     observer.observe(element);
-});
-
-document.querySelectorAll('.glass-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-        this.style.transition = 'transform 0.3s ease';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
 });

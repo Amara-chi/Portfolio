@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -30,18 +31,41 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: rgba(202, 43, 82, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        html.light {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --border-color: rgba(202, 43, 82, 0.3);
+            --glass-bg: rgba(0, 0, 0, 0.03);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
         * {
             font-family: 'Inter', sans-serif;
         }
 
         body {
             overflow-x: hidden;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .animated-gradient {
-            background: linear-gradient(-45deg, #0f0f0f, #1a0a0f, #0a0a1a, #0f0a0a);
+            background: linear-gradient(-45deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary), var(--bg-secondary));
             background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            animation: gradient 20s ease infinite;
         }
 
         @keyframes gradient {
@@ -52,10 +76,10 @@
 
         .mouse-follower {
             position: fixed;
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(202, 43, 82, 0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(202, 43, 82, 0.15) 0%, transparent 70%);
             pointer-events: none;
             transform: translate(-50%, -50%);
             transition: opacity 0.3s ease;
@@ -64,37 +88,44 @@
         }
 
         .glass-nav {
-            background: rgba(15, 15, 15, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(202, 43, 82, 0.2);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
         }
 
-        .skill-card, .project-card {
+        .glass-card:hover {
+            border-color: var(--border-color);
+            transform: translateY(-2px);
+        }
+
+        .skill-card {
             transform-style: preserve-3d;
             transition: transform 0.3s ease;
         }
 
         .skill-card:hover {
-            transform: scale(1.05) rotateY(5deg);
+            transform: scale(1.03);
         }
 
         .project-card {
             perspective: 1000px;
+            transition: all 0.3s ease;
         }
 
         .project-card:hover .project-content {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
         }
 
         .timeline-item {
             opacity: 0;
-            transform: translateX(-50px);
+            transform: translateX(-30px);
             transition: all 0.6s ease;
         }
 
@@ -105,7 +136,7 @@
 
         .scroll-reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
             transition: all 0.8s ease;
         }
 
@@ -121,7 +152,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -138,25 +169,76 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
             transform: translateY(100%);
             transition: transform 0.3s ease;
             padding: 2rem;
         }
 
+        html.light .project-overlay {
+            background: linear-gradient(to top, rgba(255,255,255,0.98), transparent);
+        }
+
         .project-card:hover .project-overlay {
             transform: translateY(0);
         }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .icon-wrapper:hover {
+            border-color: #ca2b52;
+            transform: scale(1.1);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 4rem 0;
+        }
     </style>
 </head>
-<body class="animated-gradient text-white">
+<body class="animated-gradient">
     <div class="mouse-follower" id="mouseFollower"></div>
 
     <nav class="glass-nav fixed w-full top-0 z-50 py-4">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
                 <h1 class="text-xl sm:text-2xl font-bold text-wine-600">AN</h1>
-                <ul class="hidden md:flex space-x-8">
+                <ul class="hidden md:flex space-x-8 items-center">
                     <li><a href="#home" class="nav-link hover:text-wine-600 transition">Home</a></li>
                     <li><a href="#about" class="nav-link hover:text-wine-600 transition">About</a></li>
                     <li><a href="#skills" class="nav-link hover:text-wine-600 transition">Skills</a></li>
@@ -164,12 +246,32 @@
                     <li><a href="#experience" class="nav-link hover:text-wine-600 transition">Experience</a></li>
                     <li><a href="#education" class="nav-link hover:text-wine-600 transition">Education</a></li>
                     <li><a href="#contact" class="nav-link hover:text-wine-600 transition">Contact</a></li>
+                    <li>
+                        <button id="themeToggle" class="theme-toggle p-2">
+                            <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                            <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            </svg>
+                        </button>
+                    </li>
                 </ul>
-                <button id="mobileMenuBtn" class="md:hidden text-wine-600">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="themeToggleMobile" class="theme-toggle p-2">
+                        <svg id="sunIconMobile" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="moonIconMobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    <button id="mobileMenuBtn" class="text-wine-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
                 <a href="#home" class="block nav-link hover:text-wine-600 transition py-2">Home</a>
@@ -184,18 +286,18 @@
     </nav>
 
     <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8">
-        <div class="text-center hero-text">
-            <h1 class="text-4xl sm:text-6xl lg:text-8xl font-bold mb-4 bg-gradient-to-r from-white to-wine-400 bg-clip-text text-transparent">
+        <div class="text-center hero-text max-w-5xl">
+            <h1 class="text-5xl sm:text-6xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-wine-600 to-wine-400 bg-clip-text text-transparent leading-tight">
                 Amarachi Nwachukwu
             </h1>
-            <p class="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-8">
+            <p class="text-xl sm:text-2xl lg:text-3xl mb-12" style="color: var(--text-secondary); font-weight: 300; letter-spacing: 0.05em;">
                 Frontend Developer | Data Enthusiast
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="#projects" class="bg-wine-700 hover:bg-wine-800 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition transform hover:scale-105 w-full sm:w-auto">
+                <a href="#projects" class="bg-wine-700 hover:bg-wine-800 px-8 sm:px-10 py-4 rounded-lg font-medium transition transform hover:scale-105 w-full sm:w-auto">
                     View Projects
                 </a>
-                <a href="#contact" class="border-2 border-wine-600 hover:bg-wine-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition transform hover:scale-105 w-full sm:w-auto">
+                <a href="#contact" class="glass-card hover:border-wine-600 px-8 sm:px-10 py-4 rounded-lg font-medium transition transform hover:scale-105 w-full sm:w-auto">
                     Contact Me
                 </a>
             </div>
@@ -203,15 +305,17 @@
     </section>
 
     <section id="about" class="min-h-screen flex items-center py-20 px-4 sm:px-6 lg:px-8 scroll-reveal">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center">About Me</h2>
-            <div class="glass-card rounded-2xl p-6 sm:p-8 lg:p-12">
-                <div class="flex flex-col md:flex-row items-center gap-8">
-                    <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-wine-600 to-wine-900 flex items-center justify-center transform hover:scale-110 transition">
-                        <span class="text-4xl sm:text-6xl">👩‍💻</span>
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 text-center">About Me</h2>
+            <div class="glass-card rounded-2xl p-8 sm:p-12 lg:p-16">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-gradient-to-br from-wine-600 to-wine-900 flex items-center justify-center transform hover:scale-105 transition">
+                        <svg class="w-20 h-20 sm:w-24 sm:h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
                     </div>
                     <div class="flex-1">
-                        <p class="text-base sm:text-lg text-gray-300 leading-relaxed hover:text-white transition">
+                        <p class="text-lg sm:text-xl leading-relaxed" style="color: var(--text-secondary); line-height: 1.8;">
                             I'm a passionate Frontend Developer and Data Enthusiast with a keen eye for creating beautiful, 
                             functional web experiences. I specialize in modern web technologies and love transforming complex 
                             data into intuitive, interactive visualizations. With a strong foundation in software engineering 
@@ -224,117 +328,165 @@
     </section>
 
     <section id="skills" class="min-h-screen py-20 px-4 sm:px-6 lg:px-8 scroll-reveal">
-        <div class="container mx-auto">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center">Skills</h2>
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 text-center">Skills & Technologies</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">📄</div>
-                    <h3 class="font-semibold text-sm sm:text-base">HTML</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">HTML</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">🎨</div>
-                    <h3 class="font-semibold text-sm sm:text-base">CSS</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">CSS</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">⚡</div>
-                    <h3 class="font-semibold text-sm sm:text-base">JavaScript</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 3h18v18H3V3zm16 16V5H5v14h14z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">JavaScript</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">⚛️</div>
-                    <h3 class="font-semibold text-sm sm:text-base">React</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">React</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">💨</div>
-                    <h3 class="font-semibold text-sm sm:text-base">Tailwind CSS</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.5 9.5L20 8l-1.5-1.5L17 8l1.5 1.5zM13 14l-4-4-6 6h20L13 14z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">Tailwind CSS</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">🔷</div>
-                    <h3 class="font-semibold text-sm sm:text-base">Laravel</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">Laravel</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">🚀</div>
-                    <h3 class="font-semibold text-sm sm:text-base">Supabase</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">Supabase</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">🗄️</div>
-                    <h3 class="font-semibold text-sm sm:text-base">MySQL</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">MySQL</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">🐙</div>
-                    <h3 class="font-semibold text-sm sm:text-base">GitHub</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">GitHub</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">☁️</div>
-                    <h3 class="font-semibold text-sm sm:text-base">Cloudinary</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">Cloudinary</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">📊</div>
-                    <h3 class="font-semibold text-sm sm:text-base">Chart.js</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">Chart.js</h3>
                 </div>
-                <div class="skill-card glass-card rounded-xl p-4 sm:p-6 text-center hover:border-wine-600 cursor-pointer">
-                    <div class="text-3xl sm:text-4xl mb-3">📅</div>
-                    <h3 class="font-semibold text-sm sm:text-base">FullCalendar.js</h3>
+                <div class="skill-card glass-card rounded-xl p-6 sm:p-8 text-center cursor-pointer">
+                    <div class="icon-wrapper mx-auto mb-4">
+                        <svg class="w-6 h-6 text-wine-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-base">FullCalendar.js</h3>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="projects" class="min-h-screen py-20 px-4 sm:px-6 lg:px-8 scroll-reveal">
-        <div class="container mx-auto">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center">Projects</h2>
+        <div class="container mx-auto max-w-7xl">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 text-center">Featured Projects</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div class="project-card glass-card rounded-xl overflow-hidden relative h-64 sm:h-80">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-900 to-gray-900 p-6 flex items-center justify-center">
-                        <h3 class="text-xl sm:text-2xl font-bold">Edu Schola</h3>
+                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-72 sm:h-80">
+                    <div class="project-content h-full bg-gradient-to-br from-wine-900/30 to-transparent p-8 flex items-center justify-center">
+                        <h3 class="text-2xl sm:text-3xl font-bold">Edu Schola</h3>
                     </div>
                     <div class="project-overlay">
-                        <h3 class="text-lg sm:text-xl font-bold mb-2">Edu Schola</h3>
-                        <p class="text-sm text-gray-300">Educational platform for managing school resources and student data.</p>
+                        <h3 class="text-xl font-bold mb-3">Edu Schola</h3>
+                        <p class="text-sm" style="color: var(--text-secondary);">Educational platform for managing school resources and student data.</p>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-xl overflow-hidden relative h-64 sm:h-80">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-800 to-gray-900 p-6 flex items-center justify-center">
-                        <h3 class="text-xl sm:text-2xl font-bold">Gluto International App</h3>
+                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-72 sm:h-80">
+                    <div class="project-content h-full bg-gradient-to-br from-wine-800/30 to-transparent p-8 flex items-center justify-center">
+                        <h3 class="text-2xl sm:text-3xl font-bold">Gluto International</h3>
                     </div>
                     <div class="project-overlay">
-                        <h3 class="text-lg sm:text-xl font-bold mb-2">Gluto International App</h3>
-                        <p class="text-sm text-gray-300">International business application with data visualization dashboards.</p>
+                        <h3 class="text-xl font-bold mb-3">Gluto International App</h3>
+                        <p class="text-sm" style="color: var(--text-secondary);">International business application with data visualization dashboards.</p>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-xl overflow-hidden relative h-64 sm:h-80">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-700 to-gray-900 p-6 flex items-center justify-center">
-                        <h3 class="text-xl sm:text-2xl font-bold">Trans-Sib Shipping</h3>
+                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-72 sm:h-80">
+                    <div class="project-content h-full bg-gradient-to-br from-wine-700/30 to-transparent p-8 flex items-center justify-center">
+                        <h3 class="text-2xl sm:text-3xl font-bold">Trans-Sib Shipping</h3>
                     </div>
                     <div class="project-overlay">
-                        <h3 class="text-lg sm:text-xl font-bold mb-2">Trans-Sib Shipping</h3>
-                        <p class="text-sm text-gray-300">Logistics and shipping management system with real-time tracking.</p>
+                        <h3 class="text-xl font-bold mb-3">Trans-Sib Shipping</h3>
+                        <p class="text-sm" style="color: var(--text-secondary);">Logistics and shipping management system with real-time tracking.</p>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-xl overflow-hidden relative h-64 sm:h-80">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-600 to-gray-900 p-6 flex items-center justify-center">
-                        <h3 class="text-xl sm:text-2xl font-bold">Embex Shipping</h3>
+                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-72 sm:h-80">
+                    <div class="project-content h-full bg-gradient-to-br from-wine-600/30 to-transparent p-8 flex items-center justify-center">
+                        <h3 class="text-2xl sm:text-3xl font-bold">Embex Shipping</h3>
                     </div>
                     <div class="project-overlay">
-                        <h3 class="text-lg sm:text-xl font-bold mb-2">Embex Shipping</h3>
-                        <p class="text-sm text-gray-300">Comprehensive shipping solution with inventory management features.</p>
+                        <h3 class="text-xl font-bold mb-3">Embex Shipping</h3>
+                        <p class="text-sm" style="color: var(--text-secondary);">Comprehensive shipping solution with inventory management features.</p>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-xl overflow-hidden relative h-64 sm:h-80">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-500 to-gray-900 p-6 flex items-center justify-center">
-                        <h3 class="text-xl sm:text-2xl font-bold">Yota Shipping</h3>
+                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-72 sm:h-80">
+                    <div class="project-content h-full bg-gradient-to-br from-wine-500/30 to-transparent p-8 flex items-center justify-center">
+                        <h3 class="text-2xl sm:text-3xl font-bold">Yota Shipping</h3>
                     </div>
                     <div class="project-overlay">
-                        <h3 class="text-lg sm:text-xl font-bold mb-2">Yota Shipping</h3>
-                        <p class="text-sm text-gray-300">Modern shipping platform with advanced analytics and reporting.</p>
+                        <h3 class="text-xl font-bold mb-3">Yota Shipping</h3>
+                        <p class="text-sm" style="color: var(--text-secondary);">Modern shipping platform with advanced analytics and reporting.</p>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-xl overflow-hidden relative h-64 sm:h-80">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-400 to-gray-900 p-6 flex items-center justify-center">
-                        <h3 class="text-xl sm:text-2xl font-bold">Custom Dashboards</h3>
+                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-72 sm:h-80">
+                    <div class="project-content h-full bg-gradient-to-br from-wine-400/30 to-transparent p-8 flex items-center justify-center">
+                        <h3 class="text-2xl sm:text-3xl font-bold">Custom Dashboards</h3>
                     </div>
                     <div class="project-overlay">
-                        <h3 class="text-lg sm:text-xl font-bold mb-2">Custom Dashboards</h3>
-                        <p class="text-sm text-gray-300">Data visualization dashboards with Chart.js and interactive components.</p>
+                        <h3 class="text-xl font-bold mb-3">Custom Dashboards</h3>
+                        <p class="text-sm" style="color: var(--text-secondary);">Data visualization dashboards with Chart.js and interactive components.</p>
                     </div>
                 </div>
             </div>
@@ -342,29 +494,29 @@
     </section>
 
     <section id="experience" class="min-h-screen py-20 px-4 sm:px-6 lg:px-8 scroll-reveal">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center">Experience</h2>
-            <div class="space-y-8">
-                <div class="timeline-item glass-card rounded-xl p-6 sm:p-8 border-l-4 border-wine-600">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 text-center">Experience</h2>
+            <div class="space-y-6">
+                <div class="timeline-item glass-card rounded-2xl p-8 sm:p-10 border-l-4 border-wine-600">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                        <h3 class="text-xl sm:text-2xl font-bold">SmakkTechnologies</h3>
-                        <span class="text-wine-400 text-sm sm:text-base mt-2 sm:mt-0">2022 - Present</span>
+                        <h3 class="text-2xl sm:text-3xl font-bold">SmakkTechnologies</h3>
+                        <span class="text-wine-400 font-medium mt-2 sm:mt-0">2022 - Present</span>
                     </div>
-                    <p class="text-gray-300">Frontend Developer - Building modern web applications and data-driven dashboards.</p>
+                    <p class="text-lg" style="color: var(--text-secondary);">Frontend Developer - Building modern web applications and data-driven dashboards.</p>
                 </div>
-                <div class="timeline-item glass-card rounded-xl p-6 sm:p-8 border-l-4 border-wine-600">
+                <div class="timeline-item glass-card rounded-2xl p-8 sm:p-10 border-l-4 border-wine-600">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                        <h3 class="text-xl sm:text-2xl font-bold">Gluto International</h3>
-                        <span class="text-wine-400 text-sm sm:text-base mt-2 sm:mt-0">2025</span>
+                        <h3 class="text-2xl sm:text-3xl font-bold">Gluto International</h3>
+                        <span class="text-wine-400 font-medium mt-2 sm:mt-0">2025</span>
                     </div>
-                    <p class="text-gray-300">Frontend Developer - Developed international business applications with advanced features.</p>
+                    <p class="text-lg" style="color: var(--text-secondary);">Frontend Developer - Developed international business applications with advanced features.</p>
                 </div>
-                <div class="timeline-item glass-card rounded-xl p-6 sm:p-8 border-l-4 border-wine-600">
+                <div class="timeline-item glass-card rounded-2xl p-8 sm:p-10 border-l-4 border-wine-600">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                        <h3 class="text-xl sm:text-2xl font-bold">Freelance Work</h3>
-                        <span class="text-wine-400 text-sm sm:text-base mt-2 sm:mt-0">2024 - 2025</span>
+                        <h3 class="text-2xl sm:text-3xl font-bold">Freelance Work</h3>
+                        <span class="text-wine-400 font-medium mt-2 sm:mt-0">2024 - 2025</span>
                     </div>
-                    <p class="text-gray-300">Independent Developer - Creating custom solutions for clients worldwide.</p>
+                    <p class="text-lg" style="color: var(--text-secondary);">Independent Developer - Creating custom solutions for clients worldwide.</p>
                 </div>
             </div>
         </div>
@@ -372,61 +524,86 @@
 
     <section id="education" class="min-h-screen py-20 px-4 sm:px-6 lg:px-8 scroll-reveal">
         <div class="container mx-auto max-w-6xl">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center">Education & Certifications</h2>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 text-center">Education & Certifications</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-                <div class="glass-card rounded-xl p-6 sm:p-8 hover:border-wine-600 transition">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl sm:text-4xl mr-4">🎓</div>
+                <div class="glass-card rounded-2xl p-8 sm:p-10">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-wrapper mr-4 flex-shrink-0">
+                            <svg class="w-6 h-6 text-wine-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                            </svg>
+                        </div>
                         <div>
-                            <h3 class="text-xl sm:text-2xl font-bold">HND Software Engineering</h3>
-                            <p class="text-wine-400">NIIT</p>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-1">HND Software Engineering</h3>
+                            <p class="text-wine-400 font-medium">NIIT</p>
                         </div>
                     </div>
-                    <p class="text-gray-300 text-sm sm:text-base">Comprehensive software engineering program covering modern development practices.</p>
+                    <p style="color: var(--text-secondary);">Comprehensive software engineering program covering modern development practices.</p>
                 </div>
-                <div class="glass-card rounded-xl p-6 sm:p-8 hover:border-wine-600 transition">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl sm:text-4xl mr-4">📊</div>
+                <div class="glass-card rounded-2xl p-8 sm:p-10">
+                    <div class="flex items-start mb-4">
+                        <div class="icon-wrapper mr-4 flex-shrink-0">
+                            <svg class="w-6 h-6 text-wine-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
                         <div>
-                            <h3 class="text-xl sm:text-2xl font-bold">Data Science</h3>
-                            <p class="text-wine-400">ALX (Ongoing)</p>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-1">Data Science</h3>
+                            <p class="text-wine-400 font-medium">ALX (Ongoing)</p>
                         </div>
                     </div>
-                    <p class="text-gray-300 text-sm sm:text-base">Advanced data science training focusing on analytics and machine learning.</p>
+                    <p style="color: var(--text-secondary);">Advanced data science training focusing on analytics and machine learning.</p>
                 </div>
-                <div class="glass-card rounded-xl p-6 sm:p-8 hover:border-wine-600 transition">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl sm:text-4xl mr-4">🏆</div>
+                <div class="glass-card rounded-2xl p-8 sm:p-10">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper mr-4 flex-shrink-0">
+                            <svg class="w-6 h-6 text-wine-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h3 class="text-lg sm:text-xl font-bold">ALX Foundations</h3>
-                            <p class="text-wine-400 text-sm">Certification</p>
+                            <p class="text-wine-400 text-sm font-medium">Certification</p>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card rounded-xl p-6 sm:p-8 hover:border-wine-600 transition">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl sm:text-4xl mr-4">🏆</div>
+                <div class="glass-card rounded-2xl p-8 sm:p-10">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper mr-4 flex-shrink-0">
+                            <svg class="w-6 h-6 text-wine-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h3 class="text-lg sm:text-xl font-bold">ALX Data Analytics</h3>
-                            <p class="text-wine-400 text-sm">Certification</p>
+                            <p class="text-wine-400 text-sm font-medium">Certification</p>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card rounded-xl p-6 sm:p-8 hover:border-wine-600 transition">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl sm:text-4xl mr-4">🏆</div>
+                <div class="glass-card rounded-2xl p-8 sm:p-10">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper mr-4 flex-shrink-0">
+                            <svg class="w-6 h-6 text-wine-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h3 class="text-lg sm:text-xl font-bold">FreeCodeCamp Web Design</h3>
-                            <p class="text-wine-400 text-sm">Certification</p>
+                            <p class="text-wine-400 text-sm font-medium">Certification</p>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card rounded-xl p-6 sm:p-8 hover:border-wine-600 transition">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl sm:text-4xl mr-4">🏆</div>
+                <div class="glass-card rounded-2xl p-8 sm:p-10">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper mr-4 flex-shrink-0">
+                            <svg class="w-6 h-6 text-wine-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h3 class="text-lg sm:text-xl font-bold">FreeCodeCamp JavaScript</h3>
-                            <p class="text-wine-400 text-sm">Certification</p>
+                            <p class="text-wine-400 text-sm font-medium">Certification</p>
                         </div>
                     </div>
                 </div>
@@ -436,53 +613,60 @@
 
     <section id="contact" class="min-h-screen py-20 px-4 sm:px-6 lg:px-8 scroll-reveal">
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center">Get In Touch</h2>
-            <div class="glass-card rounded-2xl p-6 sm:p-8 lg:p-12">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 text-center">Get In Touch</h2>
+            <div class="glass-card rounded-2xl p-8 sm:p-12 lg:p-16">
                 <form class="space-y-6" id="contactForm">
                     <div>
-                        <label class="block mb-2 text-sm sm:text-base">Name</label>
-                        <input type="text" required class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 focus:border-wine-600 focus:outline-none transition text-sm sm:text-base">
+                        <label class="block mb-2 font-medium">Name</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-lg glass-card focus:border-wine-600 focus:outline-none transition">
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm sm:text-base">Email</label>
-                        <input type="email" required class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 focus:border-wine-600 focus:outline-none transition text-sm sm:text-base">
+                        <label class="block mb-2 font-medium">Email</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-lg glass-card focus:border-wine-600 focus:outline-none transition">
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm sm:text-base">Message</label>
-                        <textarea rows="5" required class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 focus:border-wine-600 focus:outline-none transition text-sm sm:text-base"></textarea>
+                        <label class="block mb-2 font-medium">Message</label>
+                        <textarea rows="5" required class="w-full px-4 py-3 rounded-lg glass-card focus:border-wine-600 focus:outline-none transition"></textarea>
                     </div>
                     <button type="submit" class="w-full bg-wine-700 hover:bg-wine-800 px-8 py-4 rounded-lg font-semibold transition transform hover:scale-105">
                         Send Message
                     </button>
                 </form>
-                <div class="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center gap-6 sm:gap-8">
-                    <a href="https://github.com" target="_blank" class="flex items-center justify-center gap-2 hover:text-wine-400 transition transform hover:scale-110">
+                <div class="section-divider"></div>
+                <div class="flex flex-col sm:flex-row justify-center gap-8">
+                    <a href="https://github.com" target="_blank" class="flex items-center justify-center gap-3 hover:text-wine-400 transition">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
-                        <span>GitHub</span>
+                        <span class="font-medium">GitHub</span>
                     </a>
-                    <a href="mailto:contact@amarachi.dev" class="flex items-center justify-center gap-2 hover:text-wine-400 transition transform hover:scale-110">
+                    <a href="mailto:contact@amarachi.dev" class="flex items-center justify-center gap-3 hover:text-wine-400 transition">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
-                        <span>Email</span>
+                        <span class="font-medium">Email</span>
                     </a>
-                    <a href="#" class="flex items-center justify-center gap-2 hover:text-wine-400 transition transform hover:scale-110">
+                    <a href="#" class="flex items-center justify-center gap-3 hover:text-wine-400 transition">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <span>Location</span>
+                        <span class="font-medium">Location</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-8 text-center text-gray-400 border-t border-gray-800">
+    <footer class="py-8 text-center border-t" style="border-color: var(--glass-border); color: var(--text-secondary);">
         <p>&copy; 2025 Amarachi Nwachukwu. All rights reserved.</p>
     </footer>
+
+    <button id="backToTop" class="back-to-top glass-card hover:border-wine-600 p-4 rounded-full">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
 
     <script src="script.js"></script>
 </body>
