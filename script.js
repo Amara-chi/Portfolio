@@ -1,3 +1,14 @@
+const WHATSAPP_NUMBER = '1234567890';
+
+const PROJECT_URLS = {
+    'edu-schola': 'https://your-edu-schola-url.com',
+    'gluto': 'https://your-gluto-url.com',
+    'trans-sib': 'https://your-trans-sib-url.com',
+    'embex': 'https://your-embex-url.com',
+    'yota': 'https://your-yota-url.com',
+    'dashboards': 'https://your-dashboards-url.com'
+};
+
 const mouseFollower = document.getElementById('mouseFollower');
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -170,10 +181,33 @@ projectCards.forEach(card => {
     });
 });
 
+document.querySelectorAll('[data-project-url]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const projectKey = e.currentTarget.getAttribute('data-project-url');
+        const url = PROJECT_URLS[projectKey];
+        if (url && url !== '#' && !url.includes('your-')) {
+            window.open(url, '_blank');
+        } else {
+            alert('Project URL not configured yet. Please update the PROJECT_URLS in script.js');
+        }
+    });
+});
+
 const contactForm = document.getElementById('contactForm');
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Thank you for your message! I will get back to you soon.');
+    
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const message = document.getElementById('contactMessage').value;
+    
+    const whatsappMessage = `Hello! My name is ${name}%0A%0AEmail: ${email}%0A%0AMessage: ${message}`;
+    
+    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+    
     contactForm.reset();
 });
 
