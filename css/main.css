@@ -64,13 +64,13 @@
         
         .glass-nav {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px) ! important;
             border-bottom: 1px solid var(--glass-border);
         }
 
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px) ! important;
             border: 1px solid var(--glass-border);
             transition: all 0.3s ease;
         }
