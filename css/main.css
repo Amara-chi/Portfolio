@@ -1,0 +1,347 @@
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: rgba(202, 43, 82, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        html.light {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --border-color: rgba(202, 43, 82, 0.3);
+            --glass-bg: rgba(0, 0, 0, 0.03);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary), var(--bg-secondary));
+            background-size: 400% 400%;
+            animation: gradient 20s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .mouse-follower {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(202, 43, 82, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        html.light .mouse-follower {
+            background: radial-gradient(circle, rgba(240, 91, 91, 0.534) 0%, transparent 70%);
+            mix-blend-mode: multiply;
+        }
+        
+        .glass-nav {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--border-color);
+            /* transform: translateY(-2px); */
+        }
+
+        .skill-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.03);
+        }
+
+        .gluto{
+            /* width: 300px !important; */
+            height: 400px !important;
+            object-fit: cover;
+            padding: 60px 10px;
+            background-color: white !important;
+        }
+
+        /* Card Flip Styles */
+.project-card-flip {
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.project-card-inner {
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.project-card-flip.flipped .project-card-inner {
+    transform: rotateY(180deg);
+}
+
+.project-card-front,
+.project-card-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.project-card-back {
+    transform: rotateY(180deg);
+}
+
+/* Tilt effect - only for front of unflipped cards */
+.project-card-front {
+    transition: transform 0.2s ease;
+    transform-style: preserve-3d;
+}
+
+/* Glass card styles */
+.project-card-front.glass-card,
+.project-card-back.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+}
+
+.project-card-front.glass-card:hover {
+    border-color: var(--border-color);
+}
+
+/* Card Flip Styles */
+.project-card-flip {
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.project-card-inner {
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.project-card-flip.flipped .project-card-inner {
+    transform: rotateY(180deg);
+}
+
+.project-card-front,
+.project-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    top: 0;
+    left: 0;
+    border-radius: 1rem;
+}
+
+.project-card-back {
+    transform: rotateY(180deg);
+}
+
+/* Tilt effect - ONLY for front of unflipped cards */
+.project-card-front {
+    transition: transform 0.2s ease;
+    transform-style: preserve-3d;
+}
+
+/* Glass card styles */
+.project-card-front.glass-card,
+.project-card-back.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+}
+
+.project-card-front.glass-card:hover {
+    border-color: var(--border-color);
+}
+
+/* Back button styling */
+.flip-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    transition: all 0.3s ease;
+}
+
+.flip-back-btn:hover {
+    border-color: var(--border-color);
+    transform: scale(1.05);
+}
+
+/* Ensure proper 3D rendering */
+.transform-style-preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.transform-rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+/* Back button styling */
+.flip-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    transition: all 0.3s ease;
+}
+
+.flip-back-btn:hover {
+    border-color: var(--border-color);
+    transform: scale(1.05);
+}
+
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-text {
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-link.active {
+            color: #ca2b52;
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            padding: 2rem;
+        }
+
+        html.light .project-overlay {
+            background: linear-gradient(to top, rgba(255,255,255,0.98), transparent);
+        }
+
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .icon-wrapper:hover {
+            border-color: #ca2b52;
+            transform: scale(1.1);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 4rem 0;
+        }

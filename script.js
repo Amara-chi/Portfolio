@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = '1234567890';
+const WHATSAPP_NUMBER = '+2349026852855';
 
 const PROJECT_URLS = {
     'edu-schola': 'https://your-edu-schola-url.com',
@@ -41,6 +41,173 @@ function updateThemeIcons() {
     document.getElementById('sunIconMobile').classList.toggle('hidden', isDark);
     document.getElementById('moonIconMobile').classList.toggle('hidden', !isDark);
 }
+
+// Particle System for Hero Section
+function initParticleSystem() {
+    const canvas = document.getElementById('particleCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas size
+    function setCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    setCanvasSize();
+
+    const particles = [];
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    // Particle class
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.baseX = this.x;
+            this.baseY = this.y;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.radius = Math.random() * 2.5 + 1;
+            this.density = (Math.random() * 30) + 1;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            
+            // Use wine color from your theme
+            const gradient = ctx.createRadialGradient(
+                this.x, this.y, 0,
+                this.x, this.y, this.radius
+            );
+            
+            if (document.documentElement.classList.contains('dark')) {
+                gradient.addColorStop(0, 'rgba(202, 43, 82, 0.6)');
+                gradient.addColorStop(1, 'rgba(202, 43, 82, 0.1)');
+            } else {
+                gradient.addColorStop(0, 'rgba(202, 43, 82, 0.4)');
+                gradient.addColorStop(1, 'rgba(202, 43, 82, 0.05)');
+            }
+            
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        }
+
+        update() {
+            const dx = mouseX - this.x;
+            const dy = mouseY - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDistance = 100;
+            const forceDirectionX = dx / distance;
+            const forceDirectionY = dy / distance;
+            const force = (maxDistance - distance) / maxDistance;
+
+            if (distance < maxDistance) {
+                const directionX = forceDirectionX * force * this.density * 0.6;
+                const directionY = forceDirectionY * force * this.density * 0.6;
+                this.x -= directionX;
+                this.y -= directionY;
+            } else {
+                if (this.x !== this.baseX) {
+                    const dx = this.x - this.baseX;
+                    this.x -= dx / 10;
+                }
+                if (this.y !== this.baseY) {
+                    const dy = this.y - this.baseY;
+                    this.y -= dy / 10;
+                }
+            }
+
+            this.draw();
+        }
+    }
+
+    // Create particles
+    function createParticles() {
+        particles.length = 0;
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    // Animation loop
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw connections between particles
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    
+                    if (document.documentElement.classList.contains('dark')) {
+                        ctx.strokeStyle = `rgba(202, 43, 82, ${0.15 * (1 - distance / 120)})`;
+                    } else {
+                        ctx.strokeStyle = `rgba(202, 43, 82, ${0.1 * (1 - distance / 120)})`;
+                    }
+                    
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // Update and draw particles
+        particles.forEach(particle => particle.update());
+        requestAnimationFrame(animateParticles);
+    }
+
+    // Event listeners
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    window.addEventListener('resize', () => {
+        setCanvasSize();
+        createParticles();
+    });
+
+    // Touch events for mobile
+    window.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY;
+    });
+
+    // Initialize
+    createParticles();
+    animateParticles();
+}
+
+// Initialize particle system when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initParticleSystem();
+    
+    // Your existing DOMContentLoaded code...
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 50);
+        }, index * 50);
+    });
+});
 
 function toggleTheme() {
     if (html.classList.contains('dark')) {
@@ -161,24 +328,111 @@ backToTopBtn.addEventListener('click', () => {
 revealOnScroll();
 updateActiveNav();
 
-projectCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 15;
-        const rotateY = (centerX - x) / 15;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-    });
+
+// Integrated Card Flip and Tilt Functionality - FIXED VERSION
+function initProjectCards() {
+    const projectCards = document.querySelectorAll('.project-card-flip');
     
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    projectCards.forEach(card => {
+        const front = card.querySelector('.project-card-front');
+        const backBtn = card.querySelector('.flip-back-btn');
+        const viewProjectBtn = card.querySelector('.project-card-back a[href="#"]');
+        let isFlipped = false;
+        let tiltEnabled = true;
+
+        // Flip functionality
+        function flipCard() {
+            isFlipped = !isFlipped;
+            card.classList.toggle('flipped', isFlipped);
+            
+            // Disable tilt when flipped, enable when unflipped
+            tiltEnabled = !isFlipped;
+            
+            // Reset tilt transform immediately
+            front.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
+
+        // Click to flip
+        front.addEventListener('click', (e) => {
+            e.stopPropagation();
+            flipCard();
+        });
+
+        // Flip back button
+        backBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            flipCard();
+        });
+
+        // View project button
+        if (viewProjectBtn) {
+            viewProjectBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const projectKey = card.getAttribute('data-project-url');
+                const url = PROJECT_URLS[projectKey];
+                
+                if (url && url !== '#' && !url.includes('your-')) {
+                    window.open(url, '_blank');
+                } else {
+                    alert('Project URL not configured yet. Please update the PROJECT_URLS in script.js');
+                }
+            });
+        }
+
+        // Tilt functionality - COMPLETELY disabled when flipped
+        front.addEventListener('mousemove', (e) => {
+            if (!tiltEnabled) return; // Completely skip tilt logic if disabled
+            
+            const rect = front.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 25;
+            const rotateY = (centerX - x) / 25;
+            
+            front.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        front.addEventListener('mouseleave', () => {
+            if (tiltEnabled) {
+                front.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            }
+        });
+
+        // Close card when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!card.contains(e.target) && isFlipped) {
+                flipCard();
+            }
+        });
+
+        // Keyboard support
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                flipCard();
+            }
+            
+            if (e.key === 'Escape' && isFlipped) {
+                flipCard();
+            }
+        });
+
+        // Set tabindex for accessibility
+        card.setAttribute('tabindex', '0');
+        
+        // Add data attribute for easier debugging
+        card.setAttribute('data-tilt-enabled', 'true');
     });
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initProjectCards();
 });
 
 document.querySelectorAll('[data-project-url]').forEach(link => {

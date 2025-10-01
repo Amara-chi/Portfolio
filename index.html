@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amarachi Nwachukwu - Frontend Developer & Data Enthusiast</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/main.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -28,216 +29,14 @@
             }
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --border-color: rgba(202, 43, 82, 0.2);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-        }
-
-        html.light {
-            --bg-primary: #f8f9fa;
-            --bg-secondary: #ffffff;
-            --text-primary: #1a1a1a;
-            --text-secondary: #6c757d;
-            --border-color: rgba(202, 43, 82, 0.3);
-            --glass-bg: rgba(0, 0, 0, 0.03);
-            --glass-border: rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            overflow-x: hidden;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .animated-gradient {
-            background: linear-gradient(-45deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary), var(--bg-secondary));
-            background-size: 400% 400%;
-            animation: gradient 20s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .mouse-follower {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(202, 43, 82, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
-            z-index: 9999;
-            mix-blend-mode: screen;
-        }
-
-        .glass-nav {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
-
-        .glass-card:hover {
-            border-color: var(--border-color);
-            transform: translateY(-2px);
-        }
-
-        .skill-card {
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: scale(1.03);
-        }
-
-        .project-card {
-            perspective: 1000px;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .project-content {
-            transform: translateY(-8px);
-        }
-
-        .timeline-item {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.6s ease;
-        }
-
-        .timeline-item.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .scroll-reveal.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hero-text {
-            animation: fadeInUp 1s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .nav-link.active {
-            color: #ca2b52;
-        }
-
-        .project-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            padding: 2rem;
-        }
-
-        html.light .project-overlay {
-            background: linear-gradient(to top, rgba(255,255,255,0.98), transparent);
-        }
-
-        .project-card:hover .project-overlay {
-            transform: translateY(0);
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .back-to-top.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .icon-wrapper {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .icon-wrapper:hover {
-            border-color: #ca2b52;
-            transform: scale(1.1);
-        }
-
-        .theme-toggle {
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--border-color), transparent);
-            margin: 4rem 0;
-        }
-    </style>
 </head>
 <body class="animated-gradient">
     <div class="mouse-follower" id="mouseFollower"></div>
-
+    <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
     <nav class="glass-nav fixed w-full top-0 z-50 py-4">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
-                <h1 class="text-xl sm:text-2xl font-bold text-wine-600">AN</h1>
+                <h1 class="text-xl sm:text-2xl font-bold text-wine-600">Amarachi.</h1>
                 <ul class="hidden md:flex space-x-8 items-center">
                     <li><a href="#home" class="nav-link hover:text-wine-600 transition">Home</a></li>
                     <li><a href="#about" class="nav-link hover:text-wine-600 transition">About</a></li>
@@ -287,7 +86,7 @@
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8">
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 1;">
         <div class="text-center hero-text max-w-5xl">
             <h1 class="text-5xl sm:text-6xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-wine-600 to-wine-400 bg-clip-text text-transparent leading-tight">
                 Amarachi Nwachukwu
@@ -437,54 +236,277 @@
         <div class="container mx-auto max-w-7xl">
             <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 text-center">Featured Projects</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-80 sm:h-96 group">
-                    <img src="project-images/edu-schola.jpg" alt="Edu Schola" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://via.placeholder.com/600x400/8d1b3b/ffffff?text=Edu+Schola'">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-900/50 to-transparent p-8 flex flex-col justify-end relative z-10">
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-3">Edu Schola</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Educational platform for managing school resources and student data.</p>
-                        <a href="#" data-project-url="edu-schola" class="bg-wine-700 hover:bg-wine-800 px-6 py-2 rounded-lg font-medium transition inline-block w-fit">View Project →</a>
+                
+                <!-- Edu Schola -->
+                <div class="project-card-flip h-80 sm:h-96" data-project-url="edu-schola">
+                    <div class="project-card-inner relative w-full h-full transition-transform duration-600 transform-style-preserve-3d">
+                        <!-- Front of Card -->
+                        <div class="project-card-front absolute w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden group cursor-pointer">
+                            <img src="project-images/eduschola.png" alt="Edu Schola" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://dev.eduschola.com.gh'">
+                            <div class="project-content h-full bg-gradient-to-br from-wine-900/50 to-transparent p-8 flex flex-col justify-end relative z-10">
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Edu Schola</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">Educational platform for managing school resources and student data.</p>
+                                <div class="flex items-center gap-2 text-wine-300 font-medium">
+                                    <span>Click to flip</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="project-card-back absolute w-full h-full glass-card rounded-2xl p-8 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">Edu Schola</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                                    A comprehensive educational platform built with React and Node.js, featuring student management, resource allocation, and real-time analytics.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">React</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Node.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">MongoDB</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Chart.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Tailwind CSS</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="bg-wine-700 hover:bg-wine-800 px-4 py-2 rounded-lg font-medium transition flex-1 text-center">View Project</a>
+                                <button class="flip-back-btn glass-card hover:border-wine-600 px-4 py-2 rounded-lg font-medium transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-80 sm:h-96 group">
-                    <img src="project-images/gluto-international.jpg" alt="Gluto International" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://via.placeholder.com/600x400/8d1b3b/ffffff?text=Gluto+International'">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-800/50 to-transparent p-8 flex flex-col justify-end relative z-10">
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-3">Gluto International</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">International business application with data visualization dashboards.</p>
-                        <a href="#" data-project-url="gluto" class="bg-wine-700 hover:bg-wine-800 px-6 py-2 rounded-lg font-medium transition inline-block w-fit">View Project →</a>
+
+                <!-- Gluto International -->
+                <div class="project-card-flip h-80 sm:h-96" data-project-url="gluto">
+                    <div class="project-card-inner relative w-full h-full transition-transform duration-600 transform-style-preserve-3d">
+                        <!-- Front of Card -->
+                        <div class="project-card-front absolute w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden group cursor-pointer">
+                            <img src="project-images/Gluto Logo w stoke-B8PHErYi.png" alt="Gluto International" class="gluto absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://www.catalog.glutointernational.com/'">
+                            <div class="project-content h-full bg-gradient-to-br from-wine-800/50 to-transparent p-8 flex flex-col justify-end relative z-10">
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Gluto International</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">International business application with data visualization dashboards.</p>
+                                <div class="flex items-center gap-2 text-wine-300 font-medium">
+                                    <span>Click to flip</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="project-card-back absolute w-full h-full glass-card rounded-2xl p-8 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">Gluto International</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                                    International business platform featuring multi-currency support, advanced analytics, and real-time data visualization dashboards for global trade operations.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Vue.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Laravel</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">MySQL</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">D3.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Redis</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="bg-wine-700 hover:bg-wine-800 px-4 py-2 rounded-lg font-medium transition flex-1 text-center">View Project</a>
+                                <button class="flip-back-btn glass-card hover:border-wine-600 px-4 py-2 rounded-lg font-medium transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-80 sm:h-96 group">
-                    <img src="project-images/trans-sib.jpg" alt="Trans-Sib Shipping" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://via.placeholder.com/600x400/8d1b3b/ffffff?text=Trans-Sib+Shipping'">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-700/50 to-transparent p-8 flex flex-col justify-end relative z-10">
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-3">Trans-Sib Shipping</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Logistics and shipping management system with real-time tracking.</p>
-                        <a href="#" data-project-url="trans-sib" class="bg-wine-700 hover:bg-wine-800 px-6 py-2 rounded-lg font-medium transition inline-block w-fit">View Project →</a>
+
+                <!-- Trans-Sib Shipping -->
+                <div class="project-card-flip h-80 sm:h-96" data-project-url="trans-sib">
+                    <div class="project-card-inner relative w-full h-full transition-transform duration-600 transform-style-preserve-3d">
+                        <!-- Front of Card -->
+                        <div class="project-card-front absolute w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden group cursor-pointer">
+                            <img src="project-images/Trans-Siberian Shipping LLC.png" alt="Trans-Sib Shipping" class="absolute inset-0 w-full h-full gluto object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://www.transsiberanshipping.com/'">
+                            <div class="project-content h-full bg-gradient-to-br from-wine-700/50 to-transparent p-8 flex flex-col justify-end relative z-10">
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Trans-Sib Shipping</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">Logistics and shipping management system with real-time tracking.</p>
+                                <div class="flex items-center gap-2 text-wine-300 font-medium">
+                                    <span>Click to flip</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="project-card-back absolute w-full h-full glass-card rounded-2xl p-8 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">Trans-Sib Shipping</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                                    Comprehensive logistics platform with real-time shipment tracking, route optimization, and automated dispatch systems for international shipping operations.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">React</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Express.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">PostgreSQL</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">WebSocket</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Leaflet</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="bg-wine-700 hover:bg-wine-800 px-4 py-2 rounded-lg font-medium transition flex-1 text-center">View Project</a>
+                                <button class="flip-back-btn glass-card hover:border-wine-600 px-4 py-2 rounded-lg font-medium transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-80 sm:h-96 group">
-                    <img src="project-images/embex.jpg" alt="Embex Shipping" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://via.placeholder.com/600x400/8d1b3b/ffffff?text=Embex+Shipping'">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-600/50 to-transparent p-8 flex flex-col justify-end relative z-10">
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-3">Embex Shipping</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Comprehensive shipping solution with inventory management features.</p>
-                        <a href="#" data-project-url="embex" class="bg-wine-700 hover:bg-wine-800 px-6 py-2 rounded-lg font-medium transition inline-block w-fit">View Project →</a>
+
+                <!-- Embex Shipping -->
+                <div class="project-card-flip h-80 sm:h-96" data-project-url="embex">
+                    <div class="project-card-inner relative w-full h-full transition-transform duration-600 transform-style-preserve-3d">
+                        <!-- Front of Card -->
+                        <div class="project-card-front absolute w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden group cursor-pointer">
+                            <img src="project-images/Embex A Primary Logo IC..png" alt="Embex Shipping" style="width:400px;" class="absolute inset-0 h-auto object-cover opacity-40 bg-white group-hover:opacity-60 transition-opacity" onerror="this.src='https://www.embexbv.com/'">
+                            <div class="project-content h-full bg-gradient-to-br from-wine-600/50 to-transparent p-8 flex flex-col justify-end relative z-10">
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Embex Shipping</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">Comprehensive shipping solution with inventory management features.</p>
+                                <div class="flex items-center gap-2 text-wine-300 font-medium">
+                                    <span>Click to flip</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="project-card-back absolute w-full h-full glass-card rounded-2xl p-8 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">Embex Shipping</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                                    End-to-end shipping management system with integrated inventory control, automated billing, and multi-carrier shipping label generation.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Angular</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Spring Boot</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">MySQL</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Redis</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">REST API</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="bg-wine-700 hover:bg-wine-800 px-4 py-2 rounded-lg font-medium transition flex-1 text-center">View Project</a>
+                                <button class="flip-back-btn glass-card hover:border-wine-600 px-4 py-2 rounded-lg font-medium transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-80 sm:h-96 group">
-                    <img src="project-images/yota.jpg" alt="Yota Shipping" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://via.placeholder.com/600x400/8d1b3b/ffffff?text=Yota+Shipping'">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-500/50 to-transparent p-8 flex flex-col justify-end relative z-10">
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-3">Yota Shipping</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Modern shipping platform with advanced analytics and reporting.</p>
-                        <a href="#" data-project-url="yota" class="bg-wine-700 hover:bg-wine-800 px-6 py-2 rounded-lg font-medium transition inline-block w-fit">View Project →</a>
+
+                <!-- Yota Shipping -->
+                <div class="project-card-flip h-80 sm:h-96" data-project-url="yota">
+                    <div class="project-card-inner relative w-full h-full transition-transform duration-600 transform-style-preserve-3d">
+                        <!-- Front of Card -->
+                        <div class="project-card-front absolute w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden group cursor-pointer">
+                            <img src="project-images/Yota Shipping 1.png" alt="Yota Shipping" class="absolute inset-0 w-full h-full object-cover opacity-40 bg-white group-hover:opacity-60 transition-opacity" onerror="this.src='https://yotashipping.com/'">
+                            <div class="project-content h-full bg-gradient-to-br from-wine-500/50 to-transparent p-8 flex flex-col justify-end relative z-10">
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Yota Shipping</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">Modern shipping platform with advanced analytics and reporting.</p>
+                                <div class="flex items-center gap-2 text-wine-300 font-medium">
+                                    <span>Click to flip</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="project-card-back absolute w-full h-full glass-card rounded-2xl p-8 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">Yota Shipping</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                                    Next-generation shipping platform featuring predictive analytics, machine learning route optimization, and comprehensive business intelligence dashboards.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Next.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Python</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">MongoDB</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">TensorFlow</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Chart.js</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="bg-wine-700 hover:bg-wine-800 px-4 py-2 rounded-lg font-medium transition flex-1 text-center">View Project</a>
+                                <button class="flip-back-btn glass-card hover:border-wine-600 px-4 py-2 rounded-lg font-medium transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card glass-card rounded-2xl overflow-hidden relative h-80 sm:h-96 group">
-                    <img src="project-images/dashboards.jpg" alt="Custom Dashboards" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://via.placeholder.com/600x400/8d1b3b/ffffff?text=Custom+Dashboards'">
-                    <div class="project-content h-full bg-gradient-to-br from-wine-400/50 to-transparent p-8 flex flex-col justify-end relative z-10">
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-3">Custom Dashboards</h3>
-                        <p class="text-sm mb-4" style="color: var(--text-secondary);">Data visualization dashboards with Chart.js and interactive components.</p>
-                        <a href="#" data-project-url="dashboards" class="bg-wine-700 hover:bg-wine-800 px-6 py-2 rounded-lg font-medium transition inline-block w-fit">View Project →</a>
+
+                <!-- Personal Projects -->
+                <div class="project-card-flip h-80 sm:h-96" data-project-url="dashboards">
+                    <div class="project-card-inner relative w-full h-full transition-transform duration-600 transform-style-preserve-3d">
+                        <!-- Front of Card -->
+                        <div class="project-card-front absolute w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden group cursor-pointer">
+                            <img src="project-images/dashboards.jpg" alt="Custom Dashboards" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" onerror="this.src='https://via.placeholder.com/600x400/8d1b3b/ffffff?text=Custom+Dashboards'">
+                            <div class="project-content h-full bg-gradient-to-br from-wine-400/50 to-transparent p-8 flex flex-col justify-end relative z-10">
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Personal Projects</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">Data visualization dashboards with Chart.js and interactive components.</p>
+                                <div class="flex items-center gap-2 text-wine-300 font-medium">
+                                    <span>Click to flip</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="project-card-back absolute w-full h-full glass-card rounded-2xl p-8 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold mb-4">Personal Projects</h3>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                                    Interactive data visualization platform with real-time analytics, customizable widgets, and comprehensive reporting tools for business intelligence.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">React</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">TypeScript</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">Chart.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">D3.js</span>
+                                    <span class="px-3 py-1 bg-wine-700/30 rounded-full text-xs font-medium">WebSocket</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <!-- <a href="#" class="bg-wine-700 hover:bg-wine-800 px-4 py-2 rounded-lg font-medium transition flex-1 text-center">View Project</a> -->
+                                <button class="flip-back-btn glass-card hover:border-wine-600 px-4 py-2 rounded-lg font-medium transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -613,9 +635,9 @@
             <div class="glass-card rounded-2xl p-8 sm:p-12 lg:p-16">
                 <div class="flex flex-col items-center">
                     <div class="w-full max-w-3xl mb-8">
-                        <img src="resume/cv-preview.jpg" alt="Amarachi Nwachukwu Resume" class="w-full h-auto rounded-lg border-2 border-wine-600/30 hover:border-wine-600 transition" onerror="this.src='https://via.placeholder.com/800x1000/1a1a1a/ffffff?text=Add+Your+CV+Image+Here'">
+                        <img src="resume/Cv Screenshot.png" alt="Amarachi Nwachukwu Resume" class="w-full h-auto rounded-lg border-2 border-wine-600/30 hover:border-wine-600 transition" onerror="this.src='https://via.placeholder.com/800x1000/1a1a1a/ffffff?text=Add+Your+CV+Image+Here'">
                     </div>
-                    <a href="resume/Amarachi-Nwachukwu-CV.pdf" download class="bg-wine-700 hover:bg-wine-800 px-8 sm:px-12 py-4 rounded-lg font-semibold transition transform hover:scale-105 flex items-center gap-3">
+                    <a href="resume/Amarachi_Nwachukwu_CV.pdf.pdf" download class="bg-wine-700 hover:bg-wine-800 px-8 sm:px-12 py-4 rounded-lg font-semibold transition transform hover:scale-105 flex items-center gap-3">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
@@ -652,13 +674,13 @@
                 </form>
                 <div class="section-divider"></div>
                 <div class="flex flex-col sm:flex-row justify-center gap-8">
-                    <a href="https://github.com" target="_blank" class="flex items-center justify-center gap-3 hover:text-wine-400 transition">
+                    <a href="https://github.com/amara-chi" target="_blank" class="flex items-center justify-center gap-3 hover:text-wine-400 transition">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
                         <span class="font-medium">GitHub</span>
                     </a>
-                    <a href="mailto:contact@amarachi.dev" class="flex items-center justify-center gap-3 hover:text-wine-400 transition">
+                    <a href="mailto:namarachi525@gmail.com" class="flex items-center justify-center gap-3 hover:text-wine-400 transition">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
@@ -677,7 +699,14 @@
     </section>
 
     <footer class="py-8 text-center border-t" style="border-color: var(--glass-border); color: var(--text-secondary);">
-        <p>&copy; 2025 Amarachi Nwachukwu. All rights reserved.</p>
+        <div className="mt-8 pt-8 border-t border-gray-800 text-center">
+          <p className="text-gray-400 flex items-center justify-center gap-2">
+            Made with ❤️ by Amarachi Nwachukwu
+          </p>
+          <p className="text-gray-500 text-sm mt-2">
+            &copy; 2025 All rights reserved.
+          </p>
+        </div>    
     </footer>
 
     <button id="backToTop" class="back-to-top glass-card hover:border-wine-600 p-4 rounded-full">
