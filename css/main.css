@@ -140,6 +140,7 @@
 .project-card-back.glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
     border-radius: 1rem;
 }
@@ -193,6 +194,7 @@
 .project-card-back.glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
 }
 
