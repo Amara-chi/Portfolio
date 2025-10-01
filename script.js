@@ -1,12 +1,12 @@
 const WHATSAPP_NUMBER = '+2349026852855';
 
 const PROJECT_URLS = {
-    'edu-schola': 'https://your-edu-schola-url.com',
-    'gluto': 'https://your-gluto-url.com',
-    'trans-sib': 'https://your-trans-sib-url.com',
-    'embex': 'https://your-embex-url.com',
-    'yota': 'https://your-yota-url.com',
-    'dashboards': 'https://your-dashboards-url.com'
+'eduschola': 'https://dev.eduschola.com.gh',
+'gluto': 'https://www.catalog.glutointernational.com/',
+'trans-sib': 'https://www.transsiberanshipping.com/',
+'embex': 'https://www.embexbv.com/',
+'yota': 'https://yotashipping.com/',
+
 };
 
 const mouseFollower = document.getElementById('mouseFollower');
